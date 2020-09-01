@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="stateModel"
+            type="com.colin.go.viewmodels.StateViewModel" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            tools:context=".fragments.StateFragment">
+
+            <TextClock
+                android:id="@+id/state_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/page_padding"
+                android:format12Hour="yyyy年MM月dd日aah点mm分ss秒"
+                android:format24Hour="yyyy年MM月dd日hh:mm:ss"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{stateModel.stateInfo.content.toString()}" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{stateModel.stateInfo.loading?View.VISIBLE:View.GONE}" />
+
+
+    </FrameLayout>
+
+</layout>

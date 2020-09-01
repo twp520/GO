@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GO</string>
+
+    <string name="title_state">实时状态</string>
+    <string name="title_weather">天气信息</string>
+    <string name="title_compass">指南针</string>
+
+    <string name="error_disable_gps">请打开GPS定位开关</string>
+    <string name="loading">加载中…</string>
+</resources>
