@@ -1,10 +1,7 @@
 package com.colin.go.fragments
 
 import android.view.View
-import androidx.core.view.isVisible
-import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.colin.go.BaseFragment
 import com.colin.go.R
 import com.colin.go.databinding.WeatherFragmentBinding
