@@ -52,6 +52,7 @@ class StateFragment : BaseFragment<StateFragmentBinding>() {
     }
 
     private fun initStateInfo() {
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.stateModel = viewModel
         viewModel.startLocation()
     }
