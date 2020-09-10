@@ -4,9 +4,12 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.colin.go.BaseFragment
 import com.colin.go.R
+import com.colin.go.bean.StateInfo
 import com.colin.go.databinding.StateFragmentBinding
 import com.colin.go.viewmodels.StateViewModel
 
@@ -52,11 +55,38 @@ class StateFragment : BaseFragment<StateFragmentBinding>() {
     }
 
     private fun initStateInfo() {
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.stateModel = viewModel
+        viewModel.stateInfo.observe(viewLifecycleOwner, Observer {
+            binding.stateLoading.isVisible = it.isLoading()
+            if (it.isContentState()) {
+                setContent(it.content!!)
+            }
+        })
         viewModel.startLocation()
     }
 
+    private fun setContent(content: StateInfo) {
+        binding.stateSpeed.text = getString(R.string.string_speed, content.speed.toString())
+        binding.stateBearing.text = getString(R.string.string_bearing, content.bearing.toString())
+        binding.stateAltitude.text =
+            getString(R.string.string_altitude, content.altitude.toString())
+        binding.stateLatLong.text = buildString {
+            append(
+                if (content.lat > 0) getString(
+                    R.string.string_north_lat,
+                    content.lat.toString()
+                ) else
+                    getString(R.string.string_south_lat, content.lat.toString())
+            )
+            append(",")
+            append(
+                if (content.long > 0) getString(
+                    R.string.string_east_lon,
+                    content.long.toString()
+                ) else
+                    getString(R.string.string_west_lon, content.long.toString())
+            )
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>,

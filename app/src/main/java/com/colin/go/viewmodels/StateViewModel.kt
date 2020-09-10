@@ -15,6 +15,7 @@ import com.colin.go.R
 import com.colin.go.bean.CODE_NOT_GPS
 import com.colin.go.bean.UIResult
 import com.colin.go.bean.StateInfo
+import com.colin.go.util.Logger
 
 class StateViewModel(app: Application) : AndroidViewModel(app), LocationListener {
 
@@ -30,6 +31,7 @@ class StateViewModel(app: Application) : AndroidViewModel(app), LocationListener
         if (providerEnabled) {
             _stateInfo.value = UIResult.loading()
             val bestProvider = locationManager.getBestProvider(getCriteria(), true) ?: ""
+            Logger.d("bestProvider = $bestProvider")
             locationManager.requestLocationUpdates(bestProvider, 1000, 10f, this)
         } else {
             _stateInfo.value = UIResult.error(
@@ -37,6 +39,15 @@ class StateViewModel(app: Application) : AndroidViewModel(app), LocationListener
                 getApplication<Application>().getString(R.string.error_disable_gps)
             )
         }
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
+        val locationManager =
+            getApplication<Application>().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager.removeUpdates(this)
+        Logger.i("onCleared")
     }
 
     private fun getCriteria(): Criteria {
@@ -51,10 +62,12 @@ class StateViewModel(app: Application) : AndroidViewModel(app), LocationListener
 
     override fun onLocationChanged(location: Location?) {
         //根据经纬度，请求接口，拿到城市。
+        //经纬度获取了有正负。经度 西经为-，东经为+。纬度 南纬为-，北纬为+.
         location?.let {
+            Logger.d("location provider = ${it.provider}")
             val info = StateInfo(
-                it.latitude,
-                it.longitude, it.altitude, it.speed * 3.6f, ""
+                it.latitude, it.longitude, it.altitude,
+                it.speed * 3.6f, "", it.bearing
             )
             _stateInfo.value = UIResult.content(info)
         }

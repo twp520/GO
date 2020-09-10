@@ -11,10 +11,32 @@
         android:layout_height="match_parent"
         tools:context=".fragments.CompassFragment">
 
-        <TextView
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/test2" />
+
+        <com.colin.go.TestView
+            android:id="@+id/msk_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/test" />
+
+
+        <Button
+            android:id="@+id/btn_ok"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="compass fragment" />
+            android:layout_height="50dp"
+            android:layout_marginTop="250dp"
+            android:text="合成" />
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="320dp" />
 
     </FrameLayout>
 </layout>

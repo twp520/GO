@@ -7,4 +7,12 @@
 
     <string name="error_disable_gps">请打开GPS定位开关</string>
     <string name="loading">加载中…</string>
+
+    <string name="string_north_lat">北纬%1$s</string>
+    <string name="string_south_lat">南纬%1$s</string>
+    <string name="string_east_lon">东经%1$s</string>
+    <string name="string_west_lon">西经%1$s</string>
+    <string name="string_speed">时速 %1$s km/h</string>
+    <string name="string_altitude">海拔 %1$s</string>
+    <string name="string_bearing">角度 %1$s</string>
 </resources>
